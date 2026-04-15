@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pastel Mail Sender</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+    <div class="bg-blur bg1"></div>
+    <div class="bg-blur bg2"></div>
+
+    <main class="container">
+        <section class="card">
+            <div class="title-wrap">
+                <p class="eyebrow">Flask Mail Studio</p>
+                <h1>파스텔톤 메일 보내기</h1>
+                <p class="subtitle">
+                    예쁜 UI로 제목과 내용을 입력하고 바로 메일을 보낼 수 있어요.
+                </p>
+            </div>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="flash-wrap">
+                        {% for category, message in messages %}
+                            <div class="flash {{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <form method="POST" class="mail-form">
+                <div class="input-group">
+                    <label for="to_email">받는 사람 이메일</label>
+                    <input
+                        type="email"
+                        id="to_email"
+                        name="to_email"
+                        placeholder="example@gmail.com"
+                        required
+                    />
+                </div>
+
+                <div class="input-group">
+                    <label for="subject">제목</label>
+                    <input
+                        type="text"
+                        id="subject"
+                        name="subject"
+                        placeholder="메일 제목을 입력하세요"
+                        required
+                    />
+                </div>
+
+                <div class="input-group">
+                    <label for="body">내용</label>
+                    <textarea
+                        id="body"
+                        name="body"
+                        rows="8"
+                        placeholder="메일 내용을 입력하세요"
+                        required
+                    ></textarea>
+                </div>
+
+                <button type="submit" class="send-btn">메일 보내기</button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>
